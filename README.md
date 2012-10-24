@@ -6,33 +6,38 @@ XMLGuy is a lightweight, flexible XML builder for .NET. It is heavily inspired b
 ``` csharp
 var doc = new XmlDocument();
 
-var feed = doc.Begin("feed");
+var org = doc.Begin("organisation");
+org.Add("staff")
+		.Add("member", new { name = "Joe Smith", age = "45" }).Up()
+		.Add("member", new { name = "Jane Smith", age = "48" }).Up()
+		.Up()
+	.Add("offices")
+		.Add("office", new { name = "Head Office", location = "Balmain, Sydney" }).Up()
+		.Up()
+	.Add("revenue", "0").Up()
+	.Add("description").Data("This organisation is a world class leader in excellence").Up()
+	.Add("investors");
 
-feed.Add("title", "A Test").Up()
-    .Add("description", "This is a test").Up()
-    .Add("parent")
-    	.Add("child", "A child of parent").Up()
-    	.Up()
-    .Add("data").Data("I live in a CDATA tag").Up()
-    .Add("One:LastNode");
-
-Console.WriteLine(doc.ToString(true)); // include pretty formatting
+Console.WriteLine(doc.ToString(true)); // enable pretty formatting
 ```
 
 This will produce
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
-<feed>
-  <title>A Test</title>
-	<description>This is a test</description>
-	<parent>
-		<child>A child of parent</child>
-	</parent>
-	<data>
-		<![CDATA[I live in a CDATA tag]]>
-	</data>
-	<One:LastNode/>
-</feed>
+<organisation >
+	<staff >
+		<member name="Joe Smith" age="45"  />
+		<member name="Jane Smith" age="48"  />
+	</staff>
+	<offices >
+		<office name="Head Office" location="Balmain, Sydney"  />
+	</offices>
+	<revenue >0</revenue>
+	<description >
+		<![CDATA[This organisation is a world class leader in excellence]]>
+	</description>
+	<investors  />
+</organisation>
 ```
 
 ## Motivation
