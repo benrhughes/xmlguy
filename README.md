@@ -40,6 +40,11 @@ For another project, I need to create a wordpress export file. This has some non
 
 Rather than rely on the underlying framework XML classes, XMLGuy simply builds up strings; meaning you can create elements with any name you like, no matter how stupid.
 
+## Installation
+For now, you'll need to pull the source and build it (there are no dependencies, unless you want to build the test project, which uses nUnit). 
+
+Once it becomes more stable/feature complete I'll add it to nuget and have an assembly on github to download.
+
 ## Current Status
 XMLGuy is still under early development. It currently produces valid XML for elements, text values and CData values.
 
