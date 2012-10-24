@@ -13,8 +13,8 @@ namespace XmlGuy
 		IList<IXmlElement> Children { get; set; }
 
 		IXmlElement Up();
-		IXmlElement Add(string elementName, string value = null);
+		IXmlElement Add(string name, params object[] args);
 		IXmlElement Data(string data);
-		IXmlElement Attribute(string name, string value);
+		IDictionary<string, string> Attributes { get; set; }
 	}
 }

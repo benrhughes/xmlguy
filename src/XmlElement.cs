@@ -12,6 +12,7 @@ namespace XmlGuy
 		public XmlElement(IXmlElement parent = null, string name = null, string value = null)
 		{
 			Children = new List<IXmlElement>();
+			Attributes = new Dictionary<string, string>();
 
 			_parent = parent;
 			Name = name;
@@ -19,6 +20,7 @@ namespace XmlGuy
 		}
 
 		public IList<IXmlElement> Children { get; set; }
+		public IDictionary<string, string> Attributes { get; set; }
 		public string Name { get; set; }
 		public string Value { get; set; }
 		public bool IsCData { get; set; }
@@ -28,17 +30,41 @@ namespace XmlGuy
 			return _parent;
 		}
 
-		public IXmlElement Add(string name = null, string value = null)
+		public IXmlElement Add(string name, params object[] args)
 		{
-			return Add(name, value, false);
+			string value = null;
+			object attribObject = null;
+			Dictionary<string, string> attributes = new Dictionary<string,string>();
+
+			foreach (var arg in args)
+			{
+				if (arg is string)
+					value = arg as string;
+				else
+					attribObject = arg;
+			}
+
+			if (attribObject != null)
+			{
+				foreach (var prop in attribObject.GetType().GetProperties())
+				{
+					attributes.Add(prop.Name, prop.GetValue(attribObject, null) as string);
+				}
+			}
+
+			return Add(name, value, false, attributes);
 		}
 
-		private IXmlElement Add(string name = null, string value = null, bool isCData = false)
+		private IXmlElement Add(
+			string name = null, 
+			string value = null, 
+			bool isCData = false, 
+			IDictionary<string, string> attributes = null)
 		{
 			if (Value != null)
 				throw new InvalidOperationException("XML Element " + Name + " has a text value: it cannot contain child elements");
 
-			var child = new XmlElement(this, name, value) { IsCData = isCData };
+			var child = new XmlElement(this, name, value) { IsCData = isCData, Attributes = attributes };
 			Children.Add(child);
 			return child;
 		}

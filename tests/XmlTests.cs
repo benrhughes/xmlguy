@@ -12,20 +12,32 @@ namespace XmlGuyTests
 		[Test]
 		public void MyTest()
 		{
-			var xml = new XmlDocument();
+			var doc = new XmlDocument();
 
-			var feed = xml.Begin("feed");
+			//var feed = doc.Begin("feed");
 
-			feed.Add("title", "A Test").Up()
-				.Add("description", "This is a test").Up()
-				.Add("parent")
-					.Add("child", "A child of parent").Up()
+			//feed.Add("title", "A Test").Up()
+			//    .Add("description", "This is a test", new { id = "desc", @class = "ohmy" }).Up()
+			//    .Add("parent")
+			//        .Add("child", "A child of parent").Up()
+			//        .Up()
+			//    .Add("data").Data("I live in a CDATA tag").Up()
+			//    .Add("One:LastNode");
+
+			var org = doc.Begin("organisation");
+			org.Add("staff")
+					.Add("member", new { name = "Joe Smith", age = "45" }).Up()
+					.Add("member", new { name = "Jane Smith", age = "48" }).Up()
 					.Up()
-				.Add("data").Data("I live in a CDATA tag").Up()
-				.Add("One:LastNode");
+				.Add("offices")
+					.Add("office", new { name = "Head Office", location = "Balmain, Sydney" }).Up()
+					.Up()
+				.Add("revenue", "0").Up()
+				.Add("description").Data("This organisation is a world class leader in excellence").Up()
+				.Add("investors");
 
 
-			Console.WriteLine(xml.ToString(true));
+			Console.WriteLine(doc.ToString(true));
 		}
 	}
 }

@@ -42,11 +42,11 @@ namespace XmlGuy
 
 				if (e.Value == null && e.Children.Count == 0)
 				{
-					sb.Add("<" + e.Name + " />", pretty && e.Value == null, currentDepth);
+					sb.Add("<" + e.Name + GetAttributes(e) + " />", pretty && e.Value == null, currentDepth);
 				}
 				else
 				{
-					sb.Add("<" + e.Name + ">", pretty && e.Value == null, currentDepth);
+					sb.Add("<" + e.Name + GetAttributes(e) + ">", pretty && e.Value == null, currentDepth);
 
 					if (e.Value != null)
 						sb.Add(e.Value);
@@ -62,6 +62,18 @@ namespace XmlGuy
 			recurse(RootElement);
 
 			return sb.ToString();
+		}
+
+		private string GetAttributes(IXmlElement e)
+		{
+			string s = " ";
+
+			foreach (var attr in e.Attributes)
+			{
+				s += attr.Key + "=\"" + attr.Value + "\" ";
+			}
+
+			return s;
 		}
 	}
 }
