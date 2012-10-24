@@ -40,6 +40,13 @@ This will produce
 </organisation>
 ```
 
+## Current Status
+As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
+
+It does not currently support namespaces.
+
+It has not yet been extensively tested.
+
 ## Motivation
 For another project, I need to create a wordpress export file. This has some non-standard element names (like `wp:wxr_version`) which none of the existing .NET XML frameworks seem to handle. 
 
@@ -49,10 +56,3 @@ Rather than rely on the underlying framework XML classes, XMLGuy simply builds u
 For now, you'll need to pull the source and build it (there are no dependencies, unless you want to build the test project, which uses nUnit). 
 
 Once it becomes more stable/feature complete I'll add it to nuget and have an assembly on github to download.
-
-## Current Status
-As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
-
-It does not currently support namespaces.
-
-It has not yet been extensively tested.
