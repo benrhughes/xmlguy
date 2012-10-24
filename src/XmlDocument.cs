@@ -31,15 +31,21 @@ namespace XmlGuy
 
 			Action<IXmlElement> recurse = null;
 			recurse = e =>
+			{
+				currentDepth++;
+
+				if (e.IsCData)
 				{
-					currentDepth++;
+					sb.Add("<![CDATA[" + e.Value + "]]>", pretty, currentDepth--);
+					return;
+				}
 
-					if (e.IsCData)
-					{
-						sb.Add("<![CDATA[" + e.Value + "]]>", pretty, currentDepth--);
-						return;
-					}
-
+				if (e.Value == null && e.Children.Count == 0)
+				{
+					sb.Add("<" + e.Name + " />", pretty && e.Value == null, currentDepth);
+				}
+				else
+				{
 					sb.Add("<" + e.Name + ">", pretty && e.Value == null, currentDepth);
 
 					if (e.Value != null)
@@ -48,10 +54,10 @@ namespace XmlGuy
 						foreach (var child in e.Children)
 							recurse(child);
 
-					sb.Add("</" + e.Name + ">", pretty, currentDepth);
-
-					currentDepth--;
-				};
+					sb.Add("</" + e.Name + ">", pretty, e.Children.Count == 0 ? 0 : currentDepth);
+				}
+				currentDepth--;
+			};
 
 			recurse(RootElement);
 
