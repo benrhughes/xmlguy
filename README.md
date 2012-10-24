@@ -51,6 +51,8 @@ For now, you'll need to pull the source and build it (there are no dependencies,
 Once it becomes more stable/feature complete I'll add it to nuget and have an assembly on github to download.
 
 ## Current Status
-XMLGuy is still under early development. It currently produces valid XML for elements, text values and CData values.
+As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
 
-It does not currently support attributes or namespaces, though that will come.
+It does not currently support namespaces.
+
+It has not yet been extensively tested.
