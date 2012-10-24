@@ -4,19 +4,35 @@ XMLGuy is a lightweight, flexible XML builder for .NET. It is heavily inspired b
 
 ## Usage
 ``` csharp
-var xml = new Xml();
+var xml = new XmlDocument();
 
 var feed = xml.Begin("feed");
 
 feed.Add("title", "A Test").Up()
-  .Add("description", "This is a test").Up()
-  .Add("parent")
-  	.Add("child", "A child of parent").Up()
-  	.Up()
-  .Add("data").Data("I live in a CDATA tag").Up()
-  .Add("One:LastNode");
+    .Add("description", "This is a test").Up()
+    .Add("parent")
+    	.Add("child", "A child of parent").Up()
+    	.Up()
+    .Add("data").Data("I live in a CDATA tag").Up()
+    .Add("One:LastNode");
 
 Console.WriteLine(xml.ToString(true)); // include pretty formatting
+```
+
+This will produce
+``` xml
+<?xml version="1.0" encoding="utf-8"?>
+<feed>
+  <title>A Test</title>
+	<description>This is a test</description>
+	<parent>
+		<child>A child of parent</child>
+	</parent>
+	<data>
+		<![CDATA[I live in a CDATA tag]]>
+	</data>
+	<One:LastNode/>
+</feed>
 ```
 
 ## Motivation
