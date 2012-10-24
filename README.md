@@ -4,9 +4,9 @@ XMLGuy is a lightweight, flexible XML builder for .NET. It is heavily inspired b
 
 ## Usage
 ``` csharp
-var xml = new XmlDocument();
+var doc = new XmlDocument();
 
-var feed = xml.Begin("feed");
+var feed = doc.Begin("feed");
 
 feed.Add("title", "A Test").Up()
     .Add("description", "This is a test").Up()
@@ -16,7 +16,7 @@ feed.Add("title", "A Test").Up()
     .Add("data").Data("I live in a CDATA tag").Up()
     .Add("One:LastNode");
 
-Console.WriteLine(xml.ToString(true)); // include pretty formatting
+Console.WriteLine(doc.ToString(true)); // include pretty formatting
 ```
 
 This will produce
