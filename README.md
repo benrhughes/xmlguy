@@ -1,6 +1,6 @@
 # XMLGuy
 
-XMLGuy is a lightweight, flexible XML builder for .NET. It is heavily inspired by [xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js).
+XMLGuy is a fluent, lightweight, flexible XML builder for .NET. It is heavily inspired by [xmlbuilder-js](https://github.com/oozcitak/xmlbuilder-js).
 
 ## Usage
 ``` csharp
