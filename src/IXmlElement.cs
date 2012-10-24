@@ -14,7 +14,7 @@ namespace XmlGuy
 
 		IXmlElement Up();
 		IXmlElement Add(string name, params object[] args);
-		IXmlElement Data(string data);
+		IXmlElement CData(string data);
 		IDictionary<string, string> Attributes { get; set; }
 	}
 }

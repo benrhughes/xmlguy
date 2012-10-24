@@ -9,14 +9,12 @@ namespace XmlGuy
 	{
 		IXmlElement _parent;
 
-		public XmlElement(IXmlElement parent = null, string name = null, string value = null)
+		public XmlElement(IXmlElement parent = null)
 		{
 			Children = new List<IXmlElement>();
 			Attributes = new Dictionary<string, string>();
 
 			_parent = parent;
-			Name = name;
-			Value = value;
 		}
 
 		public IList<IXmlElement> Children { get; set; }
@@ -64,20 +62,15 @@ namespace XmlGuy
 			if (Value != null)
 				throw new InvalidOperationException("XML Element " + Name + " has a text value: it cannot contain child elements");
 
-			var child = new XmlElement(this, name, value) { IsCData = isCData, Attributes = attributes };
+			var child = new XmlElement(this) {Name = name, Value = value, IsCData = isCData, Attributes = attributes };
 			Children.Add(child);
 			return child;
 		}
 
-		public IXmlElement Data(string data)
+		public IXmlElement CData(string data)
 		{
 			Add(value: data, isCData: true);
 			return this;
-		}
-
-		public IXmlElement Attribute(string name, string value)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
