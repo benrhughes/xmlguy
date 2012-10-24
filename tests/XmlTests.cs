@@ -12,7 +12,7 @@ namespace XmlGuyTests
 		[Test]
 		public void MyTest()
 		{
-			var xml = new Xml();
+			var xml = new XmlDocument();
 
 			var feed = xml.Begin("feed");
 
