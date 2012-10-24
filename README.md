@@ -20,7 +20,9 @@ Console.WriteLine(xml.ToString(true)); // include pretty formatting
 ```
 
 ## Motivation
-For another project, I need to create a wordpress export file. This has some non-standard element names (like `wp:wxr\_version`) which none of the existing .NET XML frameworks seem to handle. 
+For another project, I need to create a wordpress export file. This has some non-standard element names (like `wp:wxr_version`) which none of the existing .NET XML frameworks seem to handle. 
+
+Rather than rely on the underlying framework XML classes, XMLGuy simply builds up strings; meaning you can create elements with any name you like, no matter how stupid.
 
 ## Current Status
 XMLGuy is still under early development. It currently produces valid XML for elements, text values and CData values.
