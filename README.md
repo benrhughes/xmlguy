@@ -51,9 +51,20 @@ Alternatively, you can download and build the source yourself.
 ## Current Status
 As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
 
-It does not currently support namespaces.
+It does not have an explict way of handling namespaces, but you can add them manually like this:
+``` csharp
+var doc = new XmlDocument();
 
-It has not yet been extensively tested.
+var rss = doc.Begin("rss");
+rss.Attributes = new Dictionary<string, string>()
+{
+	{"xmlns:content", "http://purl.org/rss/1.0/modules/content/"},
+	{"xmlns:wfw", "http://wellformedweb.org/CommentAPI/"},
+	{"xmlns:dc", "http://purl.org/dc/elements/1.1/"},
+};
+```
+
+XMLGuy has not yet been extensively tested.
 
 ## Motivation
 I have a project that needs to create XML files with some non-standard element names, which none of the existing .NET XML frameworks seem to handle. 
