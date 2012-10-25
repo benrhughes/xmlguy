@@ -39,6 +39,14 @@ This will produce
 	<investors  />
 </organisation>
 ```
+## Installation
+XMLGuy is available in [NuGet](http://nuget.org/packages/XmlGuy), which you can access via Visual Studio's package manager, or by running
+```
+Install-Package XmlGuy
+```
+from the package manager console.
+
+Alternatively, you can download and build the source yourself.
 
 ## Current Status
 As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
@@ -51,8 +59,3 @@ It has not yet been extensively tested.
 I have a project that needs to create XML files with some non-standard element names, which none of the existing .NET XML frameworks seem to handle. 
 
 Rather than rely on the underlying framework XML classes, XMLGuy simply builds up strings; meaning you can create elements with any name you like, no matter how stupid.
-
-## Installation
-For now, you'll need to pull the source and build it (there are no dependencies, unless you want to build the test project, which uses nUnit). 
-
-Once it becomes more stable/feature complete I'll add it to nuget and have an assembly on github to download.
