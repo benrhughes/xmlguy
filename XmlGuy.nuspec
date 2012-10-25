@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+    <metadata>
+        <id>XmlGuy</id>
+        <version>1.0.1</version>
+        <title>XMLGuy</title>
+        <authors>Hughesoft</authors>
+        <owners>Ben Hughes</owners>
+        <licenseUrl>https://github.com/benrhughes/xmlguy/blob/master/MIT_License.txt</licenseUrl>
+        <projectUrl>https://github.com/benrhughes/xmlguy</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>A fluent, lightweight, flexible XML builder for .NET</description>
+        <summary>A fluent, lightweight, flexible XML builder for .NET</summary>
+        <copyright>2012 Ben Hughes</copyright>
+        <language />
+        <tags>xml fluent builder</tags>
+    </metadata>
+    <files>
+        <file src="bin\XmlGuy.dll" target="lib\XmlGuy.dll" />
+    </files>
+</package>
