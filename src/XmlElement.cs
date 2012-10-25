@@ -34,19 +34,22 @@ namespace XmlGuy
 			object attribObject = null;
 			Dictionary<string, string> attributes = new Dictionary<string,string>();
 
-			foreach (var arg in args)
+			if (args != null)
 			{
-				if (arg is string)
-					value = arg as string;
-				else
-					attribObject = arg;
-			}
-
-			if (attribObject != null)
-			{
-				foreach (var prop in attribObject.GetType().GetProperties())
+				foreach (var arg in args)
 				{
-					attributes.Add(prop.Name, prop.GetValue(attribObject, null) as string);
+					if (arg is string)
+						value = arg as string;
+					else
+						attribObject = arg;
+				}
+
+				if (attribObject != null)
+				{
+					foreach (var prop in attribObject.GetType().GetProperties())
+					{
+						attributes.Add(prop.Name, prop.GetValue(attribObject, null) as string);
+					}
 				}
 			}
 

@@ -10,6 +10,14 @@ namespace XmlGuyTests
 	public class XmlTests
 	{
 		[Test]
+		public void NullValuesAreHandled()
+		{
+			var doc = new XmlDocument();
+
+			Assert.DoesNotThrow(() => doc.Begin("x").Add("guy", null));
+		}
+
+		[Test]
 		public void MyTest()
 		{
 			var doc = new XmlDocument();
