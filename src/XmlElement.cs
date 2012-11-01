@@ -5,34 +5,26 @@ using System.Text;
 
 namespace XmlGuy
 {
-	public class XmlElement : IXmlElement
+	public class XmlElement : AbstractXmlElement
 	{
-		IXmlElement _parent;
-
-		public XmlElement(IXmlElement parent = null)
+		public XmlElement(XmlElement parent = null) : base(parent)
 		{
 			Children = new List<IXmlElement>();
 			Attributes = new Dictionary<string, string>();
-
-			_parent = parent;
 		}
 
 		public IList<IXmlElement> Children { get; set; }
 		public IDictionary<string, string> Attributes { get; set; }
-		public string Name { get; set; }
-		public string Value { get; set; }
-		public bool IsCData { get; set; }
 
-		public IXmlElement Up()
+		public XmlElement Up()
 		{
-			return _parent;
+			return Parent;
 		}
 
-		public IXmlElement Add(string name, params object[] args)
+		public XmlElement Add(string name, params object[] args)
 		{
 			string value = null;
-			object attribObject = null;
-			Dictionary<string, string> attributes = new Dictionary<string,string>();
+			Dictionary<string, string> attributes = new Dictionary<string, string>();
 
 			if (args != null)
 			{
@@ -41,39 +33,36 @@ namespace XmlGuy
 					if (arg is string)
 						value = arg as string;
 					else
-						attribObject = arg;
-				}
-
-				if (attribObject != null)
-				{
-					foreach (var prop in attribObject.GetType().GetProperties())
-					{
-						attributes.Add(prop.Name, prop.GetValue(attribObject, null) as string);
-					}
+						foreach (var prop in arg.GetType().GetProperties())
+							attributes.Add(prop.Name, prop.GetValue(arg, null) as string);
 				}
 			}
 
-			return Add(name, value, false, attributes);
+			return Add(name, value, attributes);
 		}
 
-		private IXmlElement Add(
-			string name = null, 
-			string value = null, 
-			bool isCData = false, 
-			IDictionary<string, string> attributes = null)
+		private XmlElement Add(string name, string value, IDictionary<string, string> attributes)
 		{
 			if (Value != null)
 				throw new InvalidOperationException("XML Element " + Name + " has a text value: it cannot contain child elements");
 
-			var child = new XmlElement(this) {Name = name, Value = value, IsCData = isCData, Attributes = attributes };
+			var child = new XmlElement(this) { Name = name, Value = value, Attributes = attributes };
 			Children.Add(child);
 			return child;
 		}
 
-		public IXmlElement CData(string data)
+		public XmlElement CData(string data)
 		{
-			Add(value: data, isCData: true);
+			Children.Add(new CDataElement(this) { Value = data });
 			return this;
+		}
+	}
+
+	public class CDataElement : AbstractXmlElement
+	{
+		public CDataElement(XmlElement parent = null) : base(parent)
+		{
+
 		}
 	}
 }

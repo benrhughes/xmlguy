@@ -8,9 +8,9 @@ namespace XmlGuy
 {
 	public class XmlDocument
 	{
-		public IXmlElement RootElement { get; private set; }
+		public XmlElement RootElement { get; private set; }
 
-		public IXmlElement Begin(string rootElementName)
+		public XmlElement Begin(string rootElementName)
 		{
 			RootElement = new XmlElement { Name = rootElementName };
 
@@ -34,28 +34,32 @@ namespace XmlGuy
 			{
 				currentDepth++;
 
-				if (e.IsCData)
+				if (e is CDataElement)
 				{
 					sb.Add("<![CDATA[" + e.Value + "]]>", pretty, currentDepth--);
 					return;
 				}
 
-				if (e.Value == null && e.Children.Count == 0)
+				var xe = e as XmlElement;
+				if (xe == null)
+					return;
+
+				if (xe.Value == null && xe.Children.Count == 0)
 				{
-					sb.Add("<" + e.Name + GetAttributes(e) + " />", pretty, currentDepth);
+					sb.Add("<" + xe.Name + GetAttributes(xe) + " />", pretty, currentDepth);
 				}
 				else
 				{
 					// we keep text values on the same line, so only make it pretty if we don't have a value
-					sb.Add("<" + e.Name + GetAttributes(e) + ">", pretty && e.Value == null, currentDepth);
+					sb.Add("<" + xe.Name + GetAttributes(xe) + ">", pretty && xe.Value == null, currentDepth);
 
-					if (e.Value != null)
+					if (xe.Value != null)
 						sb.Add(e.Value);
 					else
-						foreach (var child in e.Children)
+						foreach (var child in xe.Children)
 							recurse(child);
 
-					sb.Add("</" + e.Name + ">", pretty, e.Value != null ? 0 : currentDepth);
+					sb.Add("</" + xe.Name + ">", pretty, xe.Value != null ? 0 : currentDepth);
 				}
 				currentDepth--;
 			};
@@ -65,7 +69,7 @@ namespace XmlGuy
 			return sb.ToString();
 		}
 
-		private string GetAttributes(IXmlElement e)
+		private string GetAttributes(XmlElement e)
 		{
 			string s = " ";
 

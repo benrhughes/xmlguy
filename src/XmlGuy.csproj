@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractXmlElement.cs" />
     <Compile Include="IXmlElement.cs" />
     <Compile Include="StringBuilderExtensions.cs" />
     <Compile Include="XmlDocument.cs" />
