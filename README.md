@@ -6,8 +6,8 @@ XMLGuy is a fluent, lightweight, flexible XML builder for .NET. It is heavily in
 ``` csharp
 var doc = new XmlDocument();
 
-var org = doc.Begin("organisation");
-org.Add("staff")
+doc.Begin("organisation")
+	.Add("staff")
 		.Add("member", new { name = "Joe Smith", age = "45" }).Up()
 		.Add("member", new { name = "Jane Smith", age = "48" }).Up()
 		.Up()
