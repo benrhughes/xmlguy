@@ -12,7 +12,37 @@ namespace XmlGuyTests
 		[Test]
 		public void RT1()
 		{
+			var expected = @"";
 
+			var doc = new XmlDocument();
+			doc.Begin("bookstore")
+				.Add("locations")
+					.Add("location", new { store_id = "1", address = "21 Jump St", phone = "123456"}).Up()
+					.Add("location", new { store_id = "2",  address = "342 Pitt St", phone = "9876543"}).Up()
+					.Up()
+				.Add("books")
+					.Add("book", new {title = "The Enchiridion", price = "9.75"})
+						.Add("author", "Epictetus").Up()
+						.Add("stores_with_stock")
+							.Add("store", new { store_id = "1"}).Up()
+							.Up()
+						.Up()
+					.Add("book", new {title = "Signal to Noise", price = "5.82"})
+						.Add("author", "Neil Gaiman").Up()
+						.Add("author", "Dave McKean").Up()
+						.Add("stores_with_stock")
+							.Add("store", new { store_id = "1"}).Up()
+							.Add("store", new { store_id = "2"}).Up()
+							.Up()
+						.Up()
+					.Up()
+				.Add("staff")
+					.Add("member", new { firstname = "Ben", lastname = "Hughes", staff_id = "123"}).Up()
+					.Add("member", new { firstname = "Freddie", lastname = "Smith", staff_id = "124"}).Up();
+				
+			var actual = doc.ToString(false);
+
+			Assert.AreEqual(expected, actual);
 		}
 	}
 }
