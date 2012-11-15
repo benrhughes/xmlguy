@@ -18,6 +18,12 @@ namespace XmlGuyTests
 		}
 
 		[Test]
+		public void ProducesValidXML()
+		{
+
+		}
+
+		[Test]
 		public void MyTest()
 		{
 			var doc = new XmlDocument();
