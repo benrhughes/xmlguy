@@ -17,6 +17,20 @@ namespace XmlGuy
 			return RootElement;
 		}
 
+        public bool Validate()
+        {
+            var doc = new System.Xml.XmlDocument();
+            try
+            {
+                doc.LoadXml(this.ToString());
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
 		public override string ToString()
 		{
 			return ToString(false);
@@ -61,12 +75,13 @@ namespace XmlGuy
 
 					sb.Add("</" + xe.Name + ">", pretty, xe.Value != null ? 0 : currentDepth);
 				}
+
 				currentDepth--;
 			};
 
 			recurse(RootElement);
 
-			return sb.ToString();
+			return pretty ? sb.ToString().Trim() : sb.ToString().Replace("\t", "");
 		}
 
 		private string GetAttributes(XmlElement e)

@@ -12,8 +12,6 @@ namespace XmlGuyTests
 		[Test]
 		public void RT1()
 		{
-			var expected = @"";
-
 			var doc = new XmlDocument();
 			doc.Begin("bookstore")
 				.Add("locations")
@@ -40,9 +38,11 @@ namespace XmlGuyTests
 					.Add("member", new { firstname = "Ben", lastname = "Hughes", staff_id = "123"}).Up()
 					.Add("member", new { firstname = "Freddie", lastname = "Smith", staff_id = "124"}).Up();
 				
-			var actual = doc.ToString(false);
+            Assert.AreEqual(Resource.BookstoreExpectedNotPretty, doc.ToString());
+            Assert.AreEqual(Resource.BookstoreExpectedPretty, doc.ToString(true));
 
-			Assert.AreEqual(expected, actual);
+		    var xmlDoc = new System.Xml.XmlDocument();
+            Assert.DoesNotThrow(() => xmlDoc.LoadXml(doc.ToString()));
 		}
 	}
 }

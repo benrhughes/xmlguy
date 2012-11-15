@@ -18,10 +18,17 @@ namespace XmlGuyTests
 		}
 
 		[Test]
-		public void ProducesValidXML()
+		public void ProducesValidXMLForValidInput()
 		{
 
 		}
+
+        [Test]
+        public void ValidationCheckIdentifiesErrors()
+        {
+            var doc = new XmlGuy.XmlDocument().Begin("root").Add("ns:ben");
+            Assert.IsFalse(doc.);
+        }
 
 		[Test]
 		public void MyTest()
