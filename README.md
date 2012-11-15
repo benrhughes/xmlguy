@@ -49,7 +49,7 @@ from the package manager console.
 Alternatively, you can download and build the source yourself.
 
 ## Current Status
-As far as I know, XMLGuy currently produces valid XML for elements, attributes, text values and CData values.
+As far as I know, XMLGuy produces valid XML for elements, attributes, text values and CData values.
 
 It does not have an explict way of handling namespaces, but you can add them manually like this:
 ``` csharp
@@ -67,6 +67,6 @@ rss.Attributes = new Dictionary<string, string>()
 XMLGuy has not yet been extensively tested.
 
 ## Motivation
-I have a project that needs to create XML files with some non-standard element names, which none of the existing .NET XML frameworks seem to handle. 
+There are other libraries that attempt to make XML in .NET nicer to deal with, but they rely on the underlying .NET XML classes, which can make them a little clunky and inflexible. XMLGuy, on the other hand, simply builds up strings, so you're not bound by the limitations of those classes. Of course, this extra flexibility can mean that you can create invalid XML documents. 
 
-Rather than rely on the underlying framework XML classes, XMLGuy simply builds up strings; meaning you can create elements with any name you like, no matter how stupid.
+I also prefer the fluent paradigm that I borrowed from xmlbuilder-js.
